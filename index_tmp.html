@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <meta name="description" content="My graduation design middle report." />
+    <meta name="author" content="Sawyer Wong" />
+
+    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" /> -->
+
+    <title>毕业设计中期报告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    <link href="css/impress-common.css" rel="stylesheet" />
+
+    <script src="js/plotly-2.11.1.min.js"></script>
+    <script src="js/d3.min.js"></script>
+</head>
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress" 
+    data-transition-duration="1000"
+    data-width="1080"
+    data-height="720"
+    data-max-scale="3"
+    data-min-scale="0"
+    data-perspective="1000">
+    <!-- data-autoplay="7"> -->
+
+    <div id="title" class="step"data-x="-2200" data-y="-3000" data-rotate-x="90">
+        <q>
+            <span style="font-size: 32px">
+                基于深度神经网络的高鲁棒性<b>网络流量分类</b>算法设计与实现
+                <br />
+                <br />
+            </span>
+        </q>
+        <h3 style="float: right;">王硕</h3>
+        <br />
+        <h4 style="float: right;">2022年4月16日</h4>
+    </div>
+    <div id="choice" class="step intro" data-rel-y="3000" data-scale="3">
+        <p style="font-weight: bold; font-size: 150%; position: absolute; top: -200px; left: 0px; transform: rotate(-10deg);"
+        class="fade-in"
+        >Traffic</p>
+        <p style="font-weight: bold; font-size: 120%; position: absolute; top: -200px; right: 0px; transform: rotate(10deg);"
+        class="fade-in"
+        >Classification</p>
+        <img src="src/images/移动互联网接入流量.png"
+        style="height: 300px; position: absolute; top: 20px; left: -100px;">
+        <img src="src/images/每日Web应用程序攻击数.png"
+        style="height: 300px; position: absolute; top: 20px; right: -100px">
+    </div>
+
+    <div id="nosql_overview" class="step" data-rel-x="4000" data-rel-y="-400" data-scale="1">
+        <p>&nbsp;</p>
+    </div>
+    <div id="nosql_overview2" class="step" data-rel-x="0" data-rel-y="0" data-scale="1">
+        <p>&nbsp;</p>
+    </div>
+
+    <div id="keyvalue" class="step" data-rel-to="nosql_overview" data-rel-x="-400" data-rel-y="-400" data-rel-z="-500">
+        <h1>课题背景</h1> 
+        <div class="substep" style="position: absolute; left: 700px;">
+            It's fast because...
+            <ul>
+                <li>It's simple</li>
+                <li>It's in RAM</li>
+                <li>It's denormalized</li>
+                <li>Can use hash index</li>
+                <li>Hash based sharding</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="widecolumn" class="step" data-rel-to="nosql_overview" data-rel-x="400" data-rel-y="-400" data-rel-z="-500">
+        <h1>已完成的工作</h1>
+        <div class="substep" style="position: absolute; left: 500px;">
+            What does it do???
+            <ul>
+                <li>Tables, rows &amp; columns.</li>
+                <li>All data access uses Primary Key</li>
+                <li>PK can be composite: <br>Partition Key + Clustering Keys</li>
+                <li>Partition Key is required</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="document" class="step" data-rel-to="nosql_overview" data-rel-x="1000" data-rel-y="-400" data-rel-z="-500">
+        <h1>下一步计划</h1>
+        <div class="substep" style="position: absolute; left: 700px;">
+            What does it do???
+            <ul>
+                <li>Records are JSON or XML</li>
+                <li>Flexible schema: <br>Structure but not fixed</li>
+                <li>Secondary indexes, complex queries, transactions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step" data-x="1500" data-y="-1000">
+        <div id="myDiv" class="substep">
+
+        </div>
+    </div>
+    <div class="step" data-x="1500" data-y="0">
+        This is slide 3
+    </div>
+</div>
+
+
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+<script>
+    d3.csv('https://raw.githubusercontent.com/ws0407/testPlotly/master/data/all_label.csv', function(err, rows){
+        function unpack(rows, key) {
+            return rows.map(function(row) { return row[key]; });
+        }
+    
+        var x = [];
+        var y = [];
+        var z_data = [];
+        for(i = 0; i < 1500; i++){
+            z_data.push(unpack(rows, i));
+        }
+        var z = z_data[0].map(function (col, i) {
+            return z_data.map(function (row) {
+                return row[i];
+            })
+        });
+        var label_num = z.length;
+        var byte_num = z[0].length;
+        var x_sub = [];
+        var y_sub = [];
+        var z_sub = [];
+    
+        var data = []
+        CLASSES = ['vimeo', 'spotify', 'voipbuster', 'sinauc', 'cloudmusic', 'weibo', 'baidu', 'tudou', 'amazon', 'thunder',
+               'gmail', 'pplive', 'qq', 'taobao', 'yahoomail', 'itunes', 'twitter', 'jd', 'sohu', 'youtube', 'youku',
+               'netflix', 'aimchat', 'kugou', 'skype', 'facebook', 'google', 'mssql', 'ms-exchange'];
+    
+        for(var i = 0; i < label_num; i++){
+            for(var j = 0; j < byte_num; j++){
+                x_sub.push([i, i+0.5]);
+                y_sub.push([j, j]);
+                z_sub.push([z[i][j], z[i][j]])
+            }
+            x_sub = [];
+            y_sub = [];
+            z_sub = [];
+            data.push({
+                "x": x_sub,
+                "y": y_sub,
+                "z": z_sub,
+                "name": CLASSES[i], 
+                "showscale": i==0?true:false, 
+                "type": "surface", 
+            });
+        }
+    
+        var layout = {
+            title: 'Byte Distribution of Labels',
+            showlegend: false,
+            autosize: true,
+            width: 800,
+            height: 600,
+            paper_bgcolor: '[0, rgb(190, 190, 190)]',
+            plot_bgcolor: '[0, rgb(190, 190, 190)]',
+            bgcolor: '[0, rgb(190, 190, 190)]',
+            color: '[0, rgb(190, 190, 190)]',
+            scene: {
+                xaxis: {title: 'Label #'},
+                yaxis: {title: 'ByteIndex #'},
+                zaxis: {title: 'ByteValue'}
+            }
+        };
+        Plotly.newPlot('myDiv', data, layout);
+    });
+</script>
+
+</body>
+</html>

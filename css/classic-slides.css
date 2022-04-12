@@ -55,7 +55,6 @@ body {
     background: white;
     color: rgb(70, 70, 70);
 
-    background-image: url(../images/slides_bg.png);
     background-size: contain;
     background-position: bottom right;
     background-repeat: no-repeat;
@@ -88,7 +87,7 @@ body {
     
 */
 .slide {
-    display: block;
+    /* display: block; */
 
     width: 1850px;
     height: 1000px;
@@ -281,7 +280,7 @@ td {
 }
 .present .fade-in {
     opacity: 1.0;
-    transition: 7s;
+    transition: 3s;
 }
 .past .fade-out {
     opacity: 0.0;
@@ -319,16 +318,16 @@ td {
 /* Block smaller slides during first 2 slides */
 
 body.impress-on-title div.step,
-body.impress-on-choice div.step,
-body.impress-on-choice-subslide div.step {
+body.impress-on-myDiv-1 div.step,
+body.impress-on-choice div.step {
     opacity: 0;
     transition:         opacity 3s;
 }
 
 /* Remove intro slides from view after we are past them */
 .impress-enabled.impress-on-title .intro,
-.impress-enabled.impress-on-choice .intro,
-.impress-enabled.impress-on-choice-subslide .intro {
+.impress-enabled.impress-on-myDiv-1 .intro,
+.impress-enabled.impress-on-choice .intro {
     margin: 0;
     opacity: 1;
     transition:         opacity 3s;
@@ -341,18 +340,18 @@ body.impress-on-choice-subslide div.step {
 }
 
 /* Remove intro slides from view after we are past them */
-.impress-enabled.impress-on-nosql_overview #choice {
+/* .impress-enabled.impress-on-nosql_overview #choice {
     margin: 0;
-    opacity: 0.2;
+    opacity: 0;
     transition:         opacity 3s;
-}
+} */
 
 /* And finally, reveal Search only after nosql_overview */
 
-body.impress-on-nosql_overview div#search {
+/* body.impress-on-nosql_overview div#search {
     opacity: 0;
     transition:         opacity 3s;
-}
+} */
 
 /* Slides that are visible only during their turn. Typically on top of another slide. */
 .step.subslide {

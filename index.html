@@ -7,7 +7,6 @@
     <meta name="description" content="5 kinds of NoSQL" />
     <meta name="author" content="Henrik Ingo" />
     <link rel="stylesheet" href="impress.js/extras/highlight/styles/github.css">
-    <link rel="stylesheet" href="impress.js/extras/mermaid/mermaid.forest.css">
 
     <!-- This file contains common styles for example presentations. -->
     <link href="impress.js/css/impress-common.css" rel="stylesheet" />   
@@ -15,6 +14,9 @@
         This file contains styles specific for this example presentation. 
     -->
     <link href="css/classic-slides.css" rel="stylesheet" />
+
+    <script src="js/plotly-2.11.1.min.js"></script>
+    <script src="js/d3.min.js"></script>
     
 </head>
 
@@ -47,6 +49,7 @@
         be used for speaker notes. In fact, the impressConsole plugin will
         show it in the speaker console!
         </div>
+
     </div>
 
     <div id="choice" class="step slide intro" data-rel-y="3000" data-scale="3">
@@ -66,9 +69,7 @@
     <div id="nosql_overview" class="step slide" data-rel-x="1200" data-rel-y="-200" data-scale="1">
         <p>&nbsp;</p>
     </div>
-    <div id="nosql_overview2" class="step slide" data-rel-x="0" data-rel-y="0" data-scale="1">
-        <p>&nbsp;</p>
-    </div>
+
 
 
     <div id="keyvalue" class="step slide zfix" data-rel-to="nosql_overview" data-rel-x="-1100" data-rel-y="-200" data-rel-z="-500" data-scale="0.5">
@@ -125,7 +126,6 @@
             <li>...</li>
         </ul>
     </div>
-
 
 
     <div id="widecolumn" class="step slide zfix" data-rel-to="nosql_overview" data-rel-x="0" data-rel-y="-200" data-rel-z="-500" data-scale="0.5">
@@ -190,14 +190,33 @@
 
     <div id="document" class="step slide zfix" data-rel-to="nosql_overview" data-rel-x="1000" data-rel-y="-200" data-rel-z="-500" data-scale="0.5">
         <h1>模型搭建</h1>
-        <div class="substep">
-            <img src="src/images/论文模型示意图.png"
-            style="position: absolute;left: -20px; top: 200px; width: 1600px; object-fit: contain;">
-            <span style="position: absolute; bottom: 10px; left: 550px; font-size: 50px;">分类器模型示意图</span>
-        </div>
     </div>
 
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
+    <div id="xasas" class="step slide title intro" data-x="1000" data-y="2000" data-rel-z="-3500" data-rotate-y="90">
+    </div>
+
+    <div id="myDiv-1" class="step slide intro" data-rel-x="0" data-rel-y="0" data-scale="0.5" data-rotate-y="90">
+        <div id="myDiv" style="position: absolute; top: 0px;"></div>
+        <div id="myDiv2" style="position: absolute; top: 0px; left: 900px;"></div>
+        <p style="position: absolute; top: 700px; left: 0px; width: 800px; font-size: 30px;">
+            左图代表每一类别的字节分布规律。将每一类别的所有数据包对应位置的字节相加取平均，
+            得到图示的字节向量，可以看到不同类别的字节向量有所不同。从聚类的思想得到启发，可
+            以用神经网络学习数据包字节的相似程度以达到分类的效果。
+        </p>
+        <p style="position: absolute; top: 700px; left: 900px; width: 800px; font-size: 30px;">
+            右图对第一类的标签进行相似度判断。对每个位置的字节赋予一个权重，经过神经网络的学习
+            调整此权重，可以将第一类准确分类。如果对每个标签都进行相似度判断处理，那么可以应用
+            到多分类的问题。
+        </p>
+    </div>
+
+    <div class="step slide subslide zfix" data-rel-to="document" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
+        <img src="src/images/论文模型示意图.png"
+            style="position: absolute;left: -20px; top: 200px; width: 1600px; object-fit: contain;">
+        <span style="position: absolute; bottom: 10px; left: 550px; font-size: 50px;">分类器模型示意图</span>
+    </div>
+
+    <div class="step slide subslide zfix" data-rel-to="document" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
         <img src="src/images/对抗学习模型.png"
             style="position: absolute;left: -20px; top: 200px; width: 1600px; object-fit: contain;">
         <span style="position: absolute; bottom: 10px; left: 550px; font-size: 50px;">对抗学习模型示意图</span>
@@ -205,169 +224,126 @@
 
     <div id="graph" class="step slide zfix" data-rel-to="nosql_overview" data-rel-x="-1100" data-rel-y="800" data-rel-z="-500" data-scale="0.5">
         <h1>实验结果</h1>
-        <img src="images/neo4j-x.png"
-            class="substep" style="position: absolute; left: 100px; top: 300px; width: 400px; object-fit: contain;">
-        <img src="images/DS_Logo_Primary.png"
-            class="substep" style="position: absolute; left: 100px; top: 550px; width: 400px; object-fit: contain;">
-        <div class="substep" style="position: absolute; left: 700px;">
-            What does it do???
-            <ul>
-                <li>Records are nodes, connected by edges</li>
-                <li>Both can have properties</li>
-                <li>Indexes enable queries</li>
-            </ul>
+        <div class="substep" style="position: absolute; left: 50px; top: 150px;">
+            <p><em>所用数据集</em></p>
+        <ul style="font-size: 40px; position: absolute; left: -20px; width: 1600px">
+            <li>TrafficX-Application-29</li>
+            <span style="font-size: 30px; position: absolute; left: 200px;">> 实验室于2019年收集的数据集，包含29类流行的应用流量，包含加密和非加密流量，vpn、tor等流量，
+                如：Vimeo, Spotify, Voipbuster, Sinauc, Cloudmusic, Weibo, Baidu, Tudou等
+            </span>
+            <li style="top: 170px; position: absolute;">TrafficX-Website-20</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 240px;">> 实验室于2019年收集的数据集，包含20类流行网站的流量：JD, Netease Cloud 
+                Music, TED, Amazon, Baidu, Bing, Douban, Facebook, 
+                Google, IMDb, Instagram, iQIYI, QQ Mail, Reddit, Taobao, 
+                Tieba, Twitter, Sina Weibo, Youku, Youtube</span>
+            <li style="top: 340px; position: absolute;">USTC-TFC-Application-20</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 410px;">> 网络2016年的公开数据集，包含10类正常流量和10类异常流量
+            </span>
+            <li style="top: 490px; position: absolute;">VPN-nonVPN-Service-8</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 560px;">> 网络2016年的公开数据集，可分为16类流量，8类VPN和8类非VPN。
+                服务包括：Audio, Chat, File, Mail, Streaming, Voip
+            </span>
+        </ul>
         </div>
     </div>
 
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <pre><code class="java"
->gremlin> graph = TinkerFactory.createModern()
-==> tinkergraph[vertices:6 edges:6]
-gremlin> g = graph.traversal()
-==> graphtraversalsource[tinkergraph[vertices:6 edges:6], standard]
-gremlin> g.V().has('name','marko').out('knows').values('name')
-==> 'vadas'
-==> 'josh'
-</code></pre>
+    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
+        <p style="font-size: 40px; position: absolute; left: 50px; top: 200px;"><em>模型的准确率、召回率、F1分数(以29类数据集举例)</em></p>
+        <pre style="font-size: 16px; text-shadow: none; position: absolute; top: 280px; left: 100px;">
+            /	Label       P.        R.        F1.
+            0	vimeo       1.0 	0.9988	0.9994
+            1	spotify     0.9868	0.9993	0.9930
+            2	voipbuster  0.9993	0.9972	0.9982
+            3	sinauc      0.9998	0.9999	0.9999
+            4	cloudmusic  0.9999	0.9999	0.9999
+            5	weibe       0.9997	0.9997	0.9997
+            6	baidu       0.9990	0.9987	0.9989
+            7	tudou       0.9998	1.0        0.9999
+            8	amazon      1.0      1.0        1.0
+            9	thunder     0.9996	0.9999	0.9998
+            10	gmail       0.9936	0.9971	0.9954
+            11	pplive      0.9999	0.9999	0.9999
+            12	qq          0.9990	0.9970	0.9980
+            13	taobao      1.0 	0.9999	0.9999
+            14	yahoomail   1.0      1.0        1.0
+            15	itunes      1.0 	0.9996	0.9998
+            16	twitter     1.0      1.0        1.0
+            17	jd          1.0      1.0        1.0
+            18	sohu        1.0      1.0        1.0
+            19	youtube     0.9975	1.0        0.9987
+            20	youku       1.0 	0.9995     0.9998
+            21	netflix     0.9998	1.0        0.9999
+            22	aimchat     0.9978	0.9974	0.9976
+            23	kugou       0.9999	0.9999	0.9999
+            24	skype       0.9975	0.9986	0.9981
+            25	facebook    1.0      1.0        1.0
+            26	google      1.0      1.0        1.0
+            27	mssql       1.0      1.0        1.0
+            28	ms-exchange 1.0      1.0        1.0
+            <span style="font-weight: bold;">/	average     0.9994  0.9990  0.9992</span>
+        </pre>
+        <pre style="font-size: 20px; text-shadow: none; position: absolute; top: 480px; left: 600px;">
+            /   Label           P.        R.        F1.
+            0   SAM             0.9056    0.9277    0.9129
+            1   Tree-RNN        0.9872    0.9869    0.9867
+            2   Securitas-C4.5  0.9407    0.9429    0.9417			
+            3   Securitas-SVM   0.8981    0.9224    0.9036
+            4   Securitas-Bayes 0.8675    0.8630    0.8577
+            5   DP-SAE          0.8008    0.7308    0.7465
+            6   DP-CNN          0.9668    0.9634    0.9649
+            7   EBSNN-GRU       0.9952    0.9957    0.9954
+            8   EBSNN-LSTM      0.9987    0.9989    0.9988
+            9   <span style="font-weight: bold;">OURS            0.9994    0.9990    0.9992</span>
+        </pre>
+        
+    
     </div>
 
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <p><em>Use cases</em></p>
-        <p>Analytical. Find friends of friends that own a cat</p>
-        <p>Social media, recommendation engines, etc.</p>
-        <p>National security</p>
-    </div>
-
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <p><em>One more thing...</em></p>
-        <p>Gremlin, Cypher, GraphQL</p>
-        <p>OLTP graph databases exist. (Datastax)</p>
-        <p>Interesting unsolved problem: Optimal sharding for graph DBs.</p>
+    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
+        <img src="src/images/对抗结果.png"
+            style="position: absolute;left: -20px; top: 200px; width: 800px; left: 400px; object-fit: contain;">
+        <span style="position: absolute; bottom: 10px; left: 200px; font-size: 20px; top: 800px; width: 1200px;">通过图示看到，我们的模型添加了对抗机制后，即使插入较多的噪声字节，仍能准确地进行分类，且准确率保持在97%以上，
+            其他模型的依赖于输入的数据，不能够对噪声数据进行准确分类，以此说明我们的模型有更高的准确率和更强的鲁棒性。</span>
     </div>
 
     <div id="spark" class="step slide zfix" data-rel-to="nosql_overview" data-rel-x="0" data-rel-y="800" data-rel-z="-500" data-scale="0.5">
         <h1>中期总结</h1>
-        <img src="images/Apache_Spark_logo.svg.png"
-            class="substep" style="position: absolute; left: 100px; top: 300px; width: 400px; object-fit: contain;">
-        <img src="images/presto.png"
-            class="substep" style="position: absolute; left: 100px; top: 600px; width: 400px; object-fit: contain;">
-        <div class="substep" style="position: absolute; left: 700px;">
-            What does it do???
-            <ul>
-                <li>Formerly known as Hadoop</li>
-                <li>"Batch" queries</li>
-                <li>But also interactive</li>
-                <li>Data stored in HDFS, S3, Cassandra, MongoDB...</li>
-            </ul>
+        <div class="substep" style="position: absolute; left: 50px; top: 150px;">
+            <p><em>目前完成的工作</em></p>
+        <ul style="font-size: 40px; position: absolute; left: -20px; width: 1600px">
+            <li>数据集的收集与处理</li>
+            <span style="font-size: 30px; position: absolute; left: 200px;">> 一共四个数据集，数据集内容丰富 (包括加密/非加密，VPN/TOR等流量)，流量类别丰富 (流行应用、恶意应用、WEB流量、各类服务流量)
+            </span>
+            <li style="top: 170px; position: absolute;">模型算法的设计与实现</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 240px;">> 通过深入分析流量数据特征，模型利用字节与标签的相似度进行学习和分类，Attention机制的加入使得模型拥有更好的可解释性；
+            通过加入对抗学习机制，使模型拥有处理噪声和应对攻击的能力，有更强的鲁棒性。</span>
+            <li style="top: 340px; position: absolute;">模型的验证与对比方法的复现</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 410px;">> 目前针对一个数据集完成了本模型与其他模型的对比实验，验证了模型的优越性。
+            </span>
+        </ul>
         </div>
     </div>
-
-
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <pre><code class="scala"
->import org.apache.spark.sql.SparkSession
-val spark = SparkSession.builder().appName("Froscon demo").getOrCreate()
-import spark.implicits._
-val df = spark.read.json("people.json")
-df.createOrReplaceTempView("people")
-val sqlDF = spark.sql("SELECT * FROM people")
-sqlDF.show()
-+-----------+----------+-----+
-| firstname | lastname | age |
-+-----------+----------+-----+
-| Henrik    | Ingo     | 43  |
-+-----------+----------+-----+
-</code></pre>
-    </div>
-
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <p><em>Use cases</em></p>
-        <p>Data lake. S3.</p>
-        <p>Personalized user profile</p>
-        <p>Fraud detection, national security...</p>
-        <p>"Reporting"</p>
-    </div>
-
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <p><em>One more thing...</em></p>
-        <p>Spark Streaming (mini-batch)</p>
-        <p>AWS Athena = Presto</p>
-    </div>
-
 
     <div id="search" class="step slide zfix" data-rel-to="nosql_overview" data-rel-x="1100" data-rel-y="800" data-rel-z="-500" data-scale="0.5">
         <h1>后续计划</h1>
-        <img src="images/800px-Lucene_logo_green.svg.png"
-            class="substep" style="position: absolute; left: 100px; top: 300px; width: 400px; object-fit: contain;">
-        <img src="images/Solr_Logo_on_white.png"
-            class="substep" style="position: absolute; left: 100px; top: 400px; width: 400px; object-fit: contain;">
-        <img src="images/elastic.png"
-            class="substep" style="position: absolute; left: 100px; top: 600px; width: 400px; object-fit: contain;">
-        <div class="substep" style="position: absolute; left: 700px;">
-            What does it do???
-            <ul>
-                <li>Search for words</li>
-                <li>Ranked results</li>
-                <li>Faceting, highlighting</li>
-            </ul>
+        <div class="substep" style="position: absolute; left: 50px; top: 150px;">
+            <p><em>待完成的工作</em></p>
+        <ul style="font-size: 40px; position: absolute; left: -20px; width: 1600px">
+            <li>实验部分完成其他数据集的验证</li>
+            <span style="font-size: 30px; position: absolute; left: 200px;">> 四个数据集均已经验证了判别器的有效性，还差对抗网络与对比实验。
+            </span>
+            <li style="top: 170px; position: absolute;">模型算法的优化与解释</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 240px;">> 输出中间层的权重并解释为什么有些字节权重大，有些字节权重小。分别可视化Label Attention与Byte Attention的部分及必要性。
+            </span>
+            <li style="top: 340px; position: absolute;">论文写作</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 410px;">> 完成毕业设计论文，逐步完成英文论文写作。
+            </span>
+        </ul>
         </div>
     </div>
 
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <pre><code class="json"
->> curl -POST http://localhost:9200/froscon/people/id1 -curl 
- -H 'Content-Type: application/json' -d '{"name":"Henrik Ingo"}'
-
-> curl -XGET localhost:9200/froscon/_search?q=name:Ingo
-
-[{_index: "froscon", _type: "people", _id: id1, _source:
-{_id: "name":"Henrik Ingo"}
-</code></pre>
-    </div>
-
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <p><em>Use cases</em></p>
-        <p>Google for your website</p>
-        <p>Queries beyond the typical RDBMS BTree</p>
-        <p>Kibana analytics</p>
-        <p>Security monitoring</p>
-    </div>
-
-    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0">
-        <p><em>One more thing...</em></p>
-        <p>Elastic = MongoDB in size</p>
-    </div>
-
-
-    <div id="licenses1" class="step slide zfix" data-x="2200" data-y="0" data-z="0" style="font-size: 3em;">
-        <p>Until 2018</p>
-        <table border="1" style="width: 100%">
-            <tr><td></td><td>Apache/BSD</td><td>*GPL</td><td>open core</td><td>proprietary</td></tr>
-            <tr><td>Key-Value</td><td>Memcache</td><td></td><td>Redis</td><td></td></tr>
-            <tr><td>Wide Col</td><td>Cassandra</td><td></td><td></td><td>BigTable, DynamoDB</td></tr>
-            <tr><td>Document</td><td>MongoDB</td><td></td><td></td><td>MarkLogic</td></tr>
-            <tr><td>Graph</td><td></td><td>Neo4j</td><td>DSE Graph</td><td></td></tr>
-            <tr><td>Query Eng</td><td>Spark, Presto</td><td></td><td></td><td>Athena</td></tr>
-            <tr><td>Search</td><td>Lucene, Solr</td><td></td><td>Elastic</td><td></td></tr>
-        </table>
-    </div>
-
-    <div id="licenses2" class="step slide zfix" data-x="2200" data-y="0" data-z="0" style="font-size: 3em;">
-        <p>After 2018</p>
-        <table border="1" style="width: 100%">
-            <tr><td></td><td>Apache/BSD</td><td>*GPL</td><td>open core</td><td>proprietary</td></tr>
-            <tr><td>Key-Value</td><td>Memcache</td><td><strong>Redis</strong></td><td></td><td><strike>Redis</strike></td></tr>
-            <tr><td>Wide Col</td><td>Cassandra</td><td></td><td></td><td>BigTable, DynamoDB</td></tr>
-            <tr><td>Document</td><td></td><td></td><td></td><td><strong>MongoDB</strong></td></tr>
-            <tr><td>Graph</td><td></td><td></td><td><strong>Neo4j</strong></td><td></td></tr>
-            <tr><td>Query Eng</td><td>Spark, Presto</td><td></td><td></td><td>Athena</td></tr>
-            <tr><td>Search</td><td>Lucene, Solr, <br><strong>Open Distro</strong></td><td>Elastic</td><td></td><td></td></tr>
-        </table>
-    </div>
-
-    <div class="step slide title" data-x="2200" data-y="-3000">
-        <p>Image credits:</p>
-        <p><a href="https://www.flickr.com/photos/jadewd/4758705076/in/photolist-8fvBef-2i1fjZ7-22HqnPq-d5AKw-N11QXE-54nrbG-2iShihK-a9G6UW-BJM9M6-ffbbL6-6Zkaoq-5VfC6x-zBnhr-ECmujN-6LCCiH-mef3aF-HsCkgV-62qJer-KihqZC-d4Gi43-coiicW-23z4Xq-MtfZew-5TTqDx-6MRBVU-fFR73V-8kDhX7-a53kr3-iWzyJ6-CZg1PK-2j39vzs-pchW4R-7JPqXF-2jkfq8g-2e3mFL-nTFNcS-hWgkQ2-DeHpWg-fyh527-BbYfnD-74pXwx-8J3FUz-25qzEns-8VEoaN-DsUF7X-8SwsLJ-8NanZV-9K9ufk-sbaWHn-bDhjEf">jay~dee @ Flickr</a></p>
+    <div class="step slide title" data-rel-to="search" data-rel-x="2200" data-rel-y="0">
+        <h1>感谢聆听</h1>
     </div>
 
 
@@ -399,6 +375,124 @@ sqlDF.show()
 -->
 <script type="text/javascript" src="impress.js/js/impress.js"></script>
 <script>impress().init();</script>
+<script>
+    d3.csv('https://raw.githubusercontent.com/ws0407/testPlotly/master/data/all_label.csv', function(err, rows){
+        function unpack(rows, key) {
+            return rows.map(function(row) { return row[key]; });
+        }
+    
+        var x = [];
+        var y = [];
+        var z_data = [];
+        for(i = 0; i < 1500; i++){
+            z_data.push(unpack(rows, i));
+        }
+        var z = z_data[0].map(function (col, i) {
+            return z_data.map(function (row) {
+                return row[i];
+            })
+        });
+        var label_num = z.length;
+        var byte_num = z[0].length;
+        var x_sub = [];
+        var y_sub = [];
+        var z_sub = [];
+    
+        var data = []
+        CLASSES = ['vimeo', 'spotify', 'voipbuster', 'sinauc', 'cloudmusic', 'weibo', 'baidu', 'tudou', 'amazon', 'thunder',
+               'gmail', 'pplive', 'qq', 'taobao', 'yahoomail', 'itunes', 'twitter', 'jd', 'sohu', 'youtube', 'youku',
+               'netflix', 'aimchat', 'kugou', 'skype', 'facebook', 'google', 'mssql', 'ms-exchange'];
+    
+        for(var i = 0; i < label_num; i++){
+            for(var j = 0; j < byte_num; j++){
+                x_sub.push([i, i+0.5]);
+                y_sub.push([j, j]);
+                z_sub.push([z[i][j], z[i][j]])
+            }
+            x_sub = [];
+            y_sub = [];
+            z_sub = [];
+            data.push({
+                "x": x_sub,
+                "y": y_sub,
+                "z": z_sub,
+                "name": CLASSES[i], 
+                "showscale": i==0?true:false, 
+                "type": "surface", 
+            });
+        }
+    
+        var layout = {
+            title: 'Byte Distribution of Labels',
+            showlegend: false,
+            autosize: true,
+            width: 800,
+            height: 600,
+            paper_bgcolor: '[0, rgb(190, 190, 190)]',
+            plot_bgcolor: '[0, rgb(190, 190, 190)]',
+            bgcolor: '[0, rgb(190, 190, 190)]',
+            color: '[0, rgb(190, 190, 190)]',
+            scene: {
+                xaxis: {title: 'Label #'},
+                yaxis: {title: 'ByteIndex #'},
+                zaxis: {title: 'ByteValue'}
+            }
+        };
+        Plotly.newPlot('myDiv', data, layout);
+    });
+</script>
+<script>
+    d3.csv('https://raw.githubusercontent.com/ws0407/testPlotly/master/data/all_label_cluster.csv', function(err, rows){
+    function unpack(rows, key) {
+        return rows.map(function(row)
+        { return row[key]; });}
+    
+    var trace1 = {
+        x:unpack(rows, 'x1'), y: unpack(rows, 'y1'), z: unpack(rows, 'z1'),
+        mode: 'markers',
+        marker: {
+            size: 12,
+            line: {
+            color: 'rgba(217, 217, 217, 0.14)',
+            width: 0.5},
+            opacity: 0.8},
+        type: 'scatter3d'
+    };
+    
+    var trace2 = {
+        x:unpack(rows, 'x2'), y: unpack(rows, 'y2'), z: unpack(rows, 'z2'),
+        mode: 'markers',
+        marker: {
+            color: 'rgb(127, 127, 127)',
+            size: 12,
+            symbol: 'circle',
+            line: {
+            color: 'rgb(204, 204, 204)',
+            width: 1},
+            opacity: 0.8},
+        type: 'scatter3d'};
+    
+    var data = [trace1, trace2];
+    var layout = {
+        title: 'Bytes Clustering Result',
+        autosize: true,
+        width: 800,
+        height: 600,
+        margin: {
+            l: 65,
+            r: 50,
+            b: 65,
+            t: 90,
+        },
+        scene: {
+            xaxis: {title: 'Payload Cluster of Label #'},
+            yaxis: {title: 'Header Cluster of Label #'},
+            zaxis: {title: 'Clustering Value'}
+        }
+    };
+    Plotly.newPlot('myDiv2', data, layout);
+    });
+</script>
 
 </body>
 </html>

@@ -318,7 +318,7 @@ td {
 /* Block smaller slides during first 2 slides */
 
 body.impress-on-title div.step,
-body.impress-on-myDiv-1 div.step,
+body.impress-on-data-distribution div.step,
 body.impress-on-choice div.step {
     opacity: 0;
     transition:         opacity 3s;
@@ -326,7 +326,7 @@ body.impress-on-choice div.step {
 
 /* Remove intro slides from view after we are past them */
 .impress-enabled.impress-on-title .intro,
-.impress-enabled.impress-on-myDiv-1 .intro,
+.impress-enabled.impress-on-data-distribution .intro,
 .impress-enabled.impress-on-choice .intro {
     margin: 0;
     opacity: 1;
@@ -383,32 +383,6 @@ body.impress-on-choice-subslide div#choice-subslide img {
     transform:         translateY(-6000px);
     opacity: 0;
     transition:         25s;
-}
-
-
-/* Licenses before, after... */
-
-body.impress-enabled #licenses2 {
-    opacity: 0;
-}
-
-body.impress-enabled #licenses2.active {
-    opacity: 1;
-    transition: 2s;
-}
-
-body.impress-enabled.impress-on-licenses2 #licenses1 {
-    opacity: 0;
-    transition: 2s;
-}
-
-#licenses2 strong {
-    color: red;
-}
-
-#licenses1 td,
-#licenses2 td {
-    width: 20%;
 }
 
 #hex {

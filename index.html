@@ -247,55 +247,33 @@
     </div>
 
     <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
-        <p style="font-size: 40px; position: absolute; left: 50px; top: 200px;"><em>模型的准确率、召回率、F1分数(以29类数据集举例)</em></p>
-        <pre style="font-size: 16px; text-shadow: none; position: absolute; top: 280px; left: 100px;">
-            /	Label       P.        R.        F1.
-            0	vimeo       1.0 	0.9988	0.9994
-            1	spotify     0.9868	0.9993	0.9930
-            2	voipbuster  0.9993	0.9972	0.9982
-            3	sinauc      0.9998	0.9999	0.9999
-            4	cloudmusic  0.9999	0.9999	0.9999
-            5	weibe       0.9997	0.9997	0.9997
-            6	baidu       0.9990	0.9987	0.9989
-            7	tudou       0.9998	1.0        0.9999
-            8	amazon      1.0      1.0        1.0
-            9	thunder     0.9996	0.9999	0.9998
-            10	gmail       0.9936	0.9971	0.9954
-            11	pplive      0.9999	0.9999	0.9999
-            12	qq          0.9990	0.9970	0.9980
-            13	taobao      1.0 	0.9999	0.9999
-            14	yahoomail   1.0      1.0        1.0
-            15	itunes      1.0 	0.9996	0.9998
-            16	twitter     1.0      1.0        1.0
-            17	jd          1.0      1.0        1.0
-            18	sohu        1.0      1.0        1.0
-            19	youtube     0.9975	1.0        0.9987
-            20	youku       1.0 	0.9995     0.9998
-            21	netflix     0.9998	1.0        0.9999
-            22	aimchat     0.9978	0.9974	0.9976
-            23	kugou       0.9999	0.9999	0.9999
-            24	skype       0.9975	0.9986	0.9981
-            25	facebook    1.0      1.0        1.0
-            26	google      1.0      1.0        1.0
-            27	mssql       1.0      1.0        1.0
-            28	ms-exchange 1.0      1.0        1.0
-            <span style="font-weight: bold;">/	average     0.9994  0.9990  0.9992</span>
-        </pre>
-        <pre style="font-size: 20px; text-shadow: none; position: absolute; top: 480px; left: 600px;">
-            /   Label           P.        R.        F1.
-            0   SAM             0.9056    0.9277    0.9129
-            1   Tree-RNN        0.9872    0.9869    0.9867
-            2   Securitas-C4.5  0.9407    0.9429    0.9417			
-            3   Securitas-SVM   0.8981    0.9224    0.9036
-            4   Securitas-Bayes 0.8675    0.8630    0.8577
-            5   DP-SAE          0.8008    0.7308    0.7465
-            6   DP-CNN          0.9668    0.9634    0.9649
-            7   EBSNN-GRU       0.9952    0.9957    0.9954
-            8   EBSNN-LSTM      0.9987    0.9989    0.9988
-            9   <span style="font-weight: bold;">OURS            0.9994    0.9990    0.9992</span>
-        </pre>
-        
-    
+        <p style="position: absolute; top: 150px; left: -100px;"><em>对比方法介绍</em></p>
+        <ul style="font-size: 40px; position: absolute; left: -120px; top: 240px; width: 100%;">
+            <li>a)	Securitas</li>
+            <span style="font-size: 30px; position: absolute; left: 200px;">> 使用了LDA和词袋模型来提取数据包的应用特征，并输入到传统机器学习模型（C4.5，决策树、SVM、贝叶斯网络）中进分类。</span>
+            <li style="top: 120px; position: absolute;">b)	DeepPacket</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 180px;">> 采用CNN或者SAE对加密流量进行分类，是在流量分类领域首次使用深度学习方法的模型。</span>
+            <li style="top: 240px; position: absolute;">c)	SAM</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 300px;">> 使用带有自注意力机制的神经网络学习数据包头部分的隐层关系，然后使用简单的CNN处理学习到的注意力分数，再使用线性层连接到各个分类标签上以完成分类。</span>
+            <li style="top: 400px; position: absolute;">d)	Tree-RNN</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 460px;">> 使用树形结构的RNN来进行数据包的分类，树的每个结点采用LSTM进行分类，非叶子结点实现二分类，叶子结点实现小规模的二分类或三分类，需要训练多个模型，分类的结果即为叶子结点的输出。</span>
+            <li style="top: 550px; position: absolute;">e)	EBSNN</li>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 610px;">> 将数据包的字节流分成固定长度的小块，然后使用两阶段的带有注意力机制的RNN进行学习，在RNN单元上使用了两种方法分别为：EBSNN-LSTM和EBSNN-GRU，实现了数据包层次的分类。</span>
+            
+        </ul>
+    </div>
+
+    <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
+        <img src="src/images/29-实验结果.png"
+            style="position: absolute;left: 220px; top: 200px; width: 550px; object-fit: contain;">
+        <span style="position: absolute; bottom: 0px; left: 320px; font-size: 20px;">TrafficX2019-Application 实验结果</span>
+        <img src="src/images/29-对比实验结果.png"
+            style="position: absolute;left: 820px; top: 200px; width: 700px; object-fit: contain;">
+        <span style="position: absolute; top: 590px; left: 1000px; font-size: 20px;">TrafficX2019-Application 对比实验及结果</span>
+        <span style="position: absolute; top: 690px; left: 810px; font-size: 30px; width: 800px;">
+            左表可以看到我们的模型在各个类别上都取得了大于 99% 的准确率。
+            在未加入噪声时，各个方法的平均准确率、召回率和 F1 分数如上表所示。可以看到我们的模型实现了最优的结果。
+        </span>
     </div>
 
     <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
@@ -314,10 +292,9 @@
             <span style="font-size: 30px; position: absolute; left: 200px;">> 一共四个数据集，数据集内容丰富 (包括加密/非加密，VPN/TOR等流量)，流量类别丰富 (流行应用、恶意应用、WEB流量、各类服务流量)
             </span>
             <li style="top: 170px; position: absolute;">模型算法的设计与实现</li>
-            <span style="font-size: 30px; position: absolute; left: 200px; top: 240px;">> 通过深入分析流量数据特征，模型利用字节与标签的相似度进行学习和分类，Attention机制的加入使得模型拥有更好的可解释性；
-            通过加入对抗学习机制，使模型拥有处理噪声和应对攻击的能力，有更强的鲁棒性。</span>
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 240px;">> 通过深入分析流量数据特征，模型利用字节与标签的相似度进行学习和分类，通过精心设计的四个注意力编码器，使得模型能够学习到流量数据的内在抽象特征与复杂关系，注意力机制的加入使得模型拥有更好的可解释性。</span>
             <li style="top: 340px; position: absolute;">模型的验证与对比方法的复现</li>
-            <span style="font-size: 30px; position: absolute; left: 200px; top: 410px;">> 目前针对一个数据集完成了本模型与其他模型的对比实验，验证了模型的优越性。
+            <span style="font-size: 30px; position: absolute; left: 200px; top: 410px;">> 目前针对一个数据集完成了本模型与其他模型的对比实验，验证了模型的优越性。对比方法包含了目前最为先进的网络流量分类技术，并包含机器学习、深度学习两个方面，一共有9类对比方法，均已完成复现和验证。
             </span>
         </ul>
         </div>

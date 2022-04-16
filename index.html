@@ -250,15 +250,15 @@
     <div class="step slide subslide zfix" data-rel-x="0" data-rel-y="0" data-rel-z="0" data-scale="0.5">
         <p style="position: absolute; top: 150px; left: -100px;"><em>对比方法介绍</em></p>
         <ul style="font-size: 40px; position: absolute; left: -120px; top: 240px; width: 100%;">
-            <li>a)	Securitas</li>
+            <li>a)	Securitas (2016)</li>
             <span style="font-size: 30px; position: absolute; left: 200px;">> 使用了LDA和词袋模型来提取数据包的应用特征，并输入到传统机器学习模型（C4.5，决策树、SVM、贝叶斯网络）中进分类。</span>
-            <li style="top: 120px; position: absolute;">b)	DeepPacket</li>
+            <li style="top: 120px; position: absolute;">b)	DeepPacket (2019)</li>
             <span style="font-size: 30px; position: absolute; left: 200px; top: 180px;">> 采用CNN或者SAE对加密流量进行分类，是在流量分类领域首次使用深度学习方法的模型。</span>
-            <li style="top: 240px; position: absolute;">c)	SAM</li>
+            <li style="top: 240px; position: absolute;">c)	SAM (2021)</li>
             <span style="font-size: 30px; position: absolute; left: 200px; top: 300px;">> 使用带有自注意力机制的神经网络学习数据包头部分的隐层关系，然后使用简单的CNN处理学习到的注意力分数，再使用线性层连接到各个分类标签上以完成分类。</span>
-            <li style="top: 400px; position: absolute;">d)	Tree-RNN</li>
+            <li style="top: 400px; position: absolute;">d)	Tree-RNN (2021)</li>
             <span style="font-size: 30px; position: absolute; left: 200px; top: 460px;">> 使用树形结构的RNN来进行数据包的分类，树的每个结点采用LSTM进行分类，非叶子结点实现二分类，叶子结点实现小规模的二分类或三分类，需要训练多个模型，分类的结果即为叶子结点的输出。</span>
-            <li style="top: 550px; position: absolute;">e)	EBSNN</li>
+            <li style="top: 550px; position: absolute;">e)	EBSNN (2021)</li>
             <span style="font-size: 30px; position: absolute; left: 200px; top: 610px;">> 将数据包的字节流分成固定长度的小块，然后使用两阶段的带有注意力机制的RNN进行学习，在RNN单元上使用了两种方法分别为：EBSNN-LSTM和EBSNN-GRU，实现了数据包层次的分类。</span>
             
         </ul>
